@@ -1,0 +1,20 @@
+import bs4, requests
+
+def getTargetPrice(productURL):
+    res = requests.get(productURL)
+    res.raise_for_status()
+
+    soup = bs4.BeautifulSoup(res.text, 'html.parser')
+    elems = soup.select('#viewport > div:nth-child(5) > div > div.Row-uds8za-0.fLedho > div.Col-favj32-0.styles__StyledCol-sc-1n8m629-5.cipYkS.h-padding-h-default.h-padding-t-tight > div.h-padding-b-default > div.h-text-red > div.style__PriceFontSize-sc-1sagrah-0.chDoAt.h-text-bold')
+    return elems[0].text.strip()
+
+price = getTargetPrice('https://www.target.com/p/4oz-washable-school-glue-up-38-up-8482/-/A-50625017')
+print('The price is $' + price)
+
+
+
+'''
+TODO:    FIX THIS
+return elems[0].text.strip()
+IndexError: list index out of range
+>>> '''
